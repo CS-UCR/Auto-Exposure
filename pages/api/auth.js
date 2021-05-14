@@ -15,7 +15,7 @@ const client = new MongoClient(url, {
 
 function findUser(db, email, username, callback) {
   const collection = db.collection("user");
-  collection.findOne({ username }, callback);
+  collection.findOne({ email }, callback);
 }
 
 function authUser(db, email, password, hash, username, callback) {
@@ -42,6 +42,12 @@ export default (req, res) => {
       const username = req.body.username;
 
       findUser(db, email, username, function (err, user) {
+        if(email==="" && password === ""){
+          res.status(500).json({ error: true, message: "Empty strings are not allowed" });
+          return;
+        }
+        console.log(email);
+        console.log(password);
         if (err) {
           res.status(500).json({ error: true, message: "Error finding User" });
           return;

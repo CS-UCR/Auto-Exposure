@@ -16,7 +16,7 @@ const client = new MongoClient(url, {
 
 function findUser(db, email, username, callback) {
   const collection = db.collection("user");
-  collection.findOne({ username }, callback);
+  collection.findOne({ email }, callback);
 }
 
 function createUser(db, username, email, password, callback) {
@@ -58,7 +58,6 @@ export default (req, res) => {
       const username = req.body.username;
       const email = req.body.email;
       const password = req.body.password;
-      const username = req.body.username;
 
       findUser(db, email, username, function (err, user) {
         if (err) {
