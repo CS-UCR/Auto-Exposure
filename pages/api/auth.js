@@ -46,8 +46,6 @@ export default (req, res) => {
           res.status(500).json({ error: true, message: "Empty strings are not allowed" });
           return;
         }
-        console.log(email);
-        console.log(password);
         if (err) {
           res.status(500).json({ error: true, message: "Error finding User" });
           return;
