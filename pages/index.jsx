@@ -1,43 +1,24 @@
-import React from 'react';
-import { useCurrentUser } from '@/hooks/index';
-import PostEditor from '@/components/post/editor';
-import Posts from '@/components/post/posts';
+import React from "react";
+import { useCurrentUser } from "@/hooks/index";
+import PostEditor from "@/components/post/editor";
+import Posts from "@/components/post/posts";
 
 const IndexPage = () => {
   const [user] = useCurrentUser();
 
   return (
-    <>
-      <style jsx>
-        {`
-          p {
-            text-align: center;
-            color: #888;
-          }
-          h3 {
-            color: #555;
-          }
-        `}
-      </style>
-      <div style={{ marginBottom: '2rem' }}>
-        <h2>
-          Hello,
-          {' '}
-          {user ? user.name : 'stranger'}
-          !
-        </h2>
-        <p>Have a wonderful day.</p>
-      </div>
+    <section className="mx-auto w-full max-w-7xl">
+      <h1 className="font-bold text-3xl tracking-loose">
+        Strap in, {user ? user.name : "Racer"}.
+      </h1>
       <div>
-        <h3>
-          All posts from the Web
-          {' '}
-          <span role="img" aria-label="Earth">🌎</span>
-        </h3>
+        <h2 className="font-medium text-xl text-gray-400 my-4">
+          Here is your current feed. Enjoy the drive.
+        </h2>
         <PostEditor />
         <Posts />
       </div>
-    </>
+    </section>
   );
 };
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useCurrentUser } from '@/hooks/index';
+import React, { useState } from "react";
+import { useCurrentUser } from "@/hooks/index";
 
 export default function PostEditor() {
   const [user] = useCurrentUser();
@@ -8,8 +8,8 @@ export default function PostEditor() {
 
   if (!user) {
     return (
-      <div style={{ color: '#555', textAlign: 'center' }}>
-        Please sign in to post
+      <div>
+        <h1>Please sign in to post</h1>
       </div>
     );
   }
@@ -20,32 +20,40 @@ export default function PostEditor() {
       content: e.currentTarget.content.value,
     };
     if (!e.currentTarget.content.value) return;
-    e.currentTarget.content.value = '';
-    const res = await fetch('/api/posts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    e.currentTarget.content.value = "";
+    const res = await fetch("/api/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
     if (res.ok) {
-      setMsg('Posted!');
+      setMsg("Posted!");
       setTimeout(() => setMsg(null), 5000);
     }
   }
 
   return (
     <>
-      <p style={{ color: '#0070f3', textAlign: 'center' }}>
-        {msg}
-      </p>
-      <form onSubmit={hanldeSubmit} style={{ flexDirection: 'row' }} autoComplete="off">
-        <label htmlFor="name">
+      <p>{msg}</p>
+      <form
+        onSubmit={hanldeSubmit}
+        autoComplete="off"
+        className="my-6"
+      >
+        <label>
           <input
-            name="content"
+            className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 mr-3 rounded-sm"
             type="text"
-            placeholder="Say something, I'm giving up on you..."
+            name="content"
+            placeholder="What is your favorite car?"
           />
         </label>
-        <button type="submit" style={{ marginLeft: '0.5rem' }}>Post</button>
+        <button
+          type="submit"
+          className="bg-black rounded-sm py-2 px-6 text-white font-medium"
+        >
+          Post
+        </button>
       </form>
     </>
   );

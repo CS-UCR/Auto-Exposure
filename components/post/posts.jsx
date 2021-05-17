@@ -1,105 +1,105 @@
-import React from 'react';
-import { useSWRInfinite } from 'swr';
-import Link from 'next/link';
-import { useUser } from '@/hooks/index';
-import fetcher from '@/lib/fetch';
-import { defaultProfilePicture } from '@/lib/default';
+import React from "react";
+import { useSWRInfinite } from "swr";
+import Link from "next/link";
+import { useUser } from "@/hooks/index";
+import fetcher from "@/lib/fetch";
+import { defaultProfilePicture } from "@/lib/default";
 
 function Post({ post }) {
   const user = useUser(post.creatorId);
   return (
-    <>
-      <style jsx>
-        {`
-          div {
-            box-shadow: 0 5px 10px rgba(0,0,0,0.12);
-            padding: 1.5rem;
-            margin-bottom: 0.5rem;
-            transition: box-shadow 0.2s ease 0s;
-          }
-          div:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-          }
-          small {
-            color: #777;
-          }
-        `}
-      </style>
-      <div>
-        {user && (
-          <Link href={`/user/${user._id}`}>
-            <a style={{ display: 'inline-flex', alignItems: 'center' }}>
-              <img width="27" height="27" style={{ borderRadius: '50%', objectFit: 'cover', marginRight: '0.3rem' }} src={user.profilePicture || defaultProfilePicture(user._id)} alt={user.name} />
-              <b>{user.name}</b>
-            </a>
-          </Link>
-        )}
-        <p>
-          {post.content}
-        </p>
-        <small>{new Date(post.createdAt).toLocaleString()}</small>
-      </div>
-    </>
+    <div
+      className="bg-white flex flex-col flex-1 p-6 shadow-md hover:shadow-xl
+                  transition duration-200 ease-in-out rounded-lg w-full border-2 border-gray-50"
+    >
+      {user && (
+        <Link href={`/user/${user._id}`}>
+          <a className="flex text-blue-500 items-center">
+            <img
+              width="27"
+              height="27"
+              className="rounded-full mr-2"
+              src={user.profilePicture || defaultProfilePicture(user._id)}
+              alt={user.name}
+            />
+            <span className="text-medium">@{user.name}</span>
+          </a>
+        </Link>
+      )}
+      <p>{post.content}</p>
+      <p className="text-sm text-gray-400">
+        {new Date(post.createdAt).toLocaleString()}
+      </p>
+    </div>
   );
 }
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 9;
 
 export function usePostPages({ creatorId } = {}) {
-  return useSWRInfinite((index, previousPageData) => {
-    // reached the end
-    if (previousPageData && previousPageData.posts.length === 0) return null;
+  return useSWRInfinite(
+    (index, previousPageData) => {
+      // reached the end
+      if (previousPageData && previousPageData.posts.length === 0) return null;
 
-    // first page, previousPageData is null
-    if (index === 0) {
-      return `/api/posts?limit=${PAGE_SIZE}${
-        creatorId ? `&by=${creatorId}` : ''
+      // first page, previousPageData is null
+      if (index === 0) {
+        return `/api/posts?limit=${PAGE_SIZE}${
+          creatorId ? `&by=${creatorId}` : ""
+        }`;
+      }
+
+      // using oldest posts createdAt date as cursor
+      // We want to fetch posts which has a datethat is
+      // before (hence the .getTime() - 1) the last post's createdAt
+      const from = new Date(
+        new Date(
+          previousPageData.posts[previousPageData.posts.length - 1].createdAt
+        ).getTime() - 1
+      ).toJSON();
+
+      return `/api/posts?from=${from}&limit=${PAGE_SIZE}${
+        creatorId ? `&by=${creatorId}` : ""
       }`;
+    },
+    fetcher,
+    {
+      refreshInterval: 10000, // Refresh every 10 seconds
     }
-
-    // using oldest posts createdAt date as cursor
-    // We want to fetch posts which has a datethat is
-    // before (hence the .getTime() - 1) the last post's createdAt
-    const from = new Date(
-      new Date(
-        previousPageData.posts[previousPageData.posts.length - 1].createdAt,
-      ).getTime() - 1,
-    ).toJSON();
-
-    return `/api/posts?from=${from}&limit=${PAGE_SIZE}${
-      creatorId ? `&by=${creatorId}` : ''
-    }`;
-  }, fetcher, {
-    refreshInterval: 10000, // Refresh every 10 seconds
-  });
+  );
 }
 
 export default function Posts({ creatorId }) {
-  const {
-    data, error, size, setSize,
-  } = usePostPages({ creatorId });
+  const { data, error, size, setSize } = usePostPages({ creatorId });
 
-  const posts = data ? data.reduce((acc, val) => [...acc, ...val.posts], []) : [];
+  const posts = data
+    ? data.reduce((acc, val) => [...acc, ...val.posts], [])
+    : [];
   const isLoadingInitialData = !data && !error;
-  const isLoadingMore = isLoadingInitialData || (data && typeof data[size - 1] === 'undefined');
+  const isLoadingMore =
+    isLoadingInitialData || (data && typeof data[size - 1] === "undefined");
   const isEmpty = data?.[0].posts?.length === 0;
-  const isReachingEnd = isEmpty || (data && data[data.length - 1]?.posts.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.posts.length < PAGE_SIZE);
 
   return (
     <div>
-      {posts.map((post) => <Post key={post._id} post={post} />)}
+      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {posts.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
+      </div>
       {!isReachingEnd && (
-      <button
-        type="button"
-        style={{
-          background: 'transparent',
-          color: '#000',
-        }}
-        onClick={() => setSize(size + 1)}
-        disabled={isReachingEnd || isLoadingMore}
-      >
-        {isLoadingMore ? '. . .' : 'load more'}
-      </button>
+        <div className="flex w-full mx-auto">
+          <button
+            type="button"
+            className="bg-black rounded-sm py-2 px-6 text-white font-medium"
+            onClick={() => setSize(size + 1)}
+            disabled={isReachingEnd || isLoadingMore}
+          >
+            {isLoadingMore ? "Loading..." : "Load more"}
+          </button>
+        </div>
       )}
     </div>
   );
