@@ -14,16 +14,19 @@ function Post({ post }) {
     >
       {user && (
         <Link href={`/user/${user._id}`}>
-          <a className="flex text-blue-600 items-center">
-            <img
-              width="27"
-              height="27"
-              className="rounded-full mr-2"
-              src={user.profilePicture || defaultProfilePicture(user._id)}
-              alt={user.name}
-            />
-            <span className="text-medium">@{user.name}</span>
-          </a>
+          <div>
+            <img src="/dummy.jpeg" className="pb-6 fill" alt="post image" />
+            <a className="flex text-blue-600 items-center">
+              <img
+                width="27"
+                height="27"
+                className="rounded-full mr-2"
+                src={user.profilePicture || defaultProfilePicture(user._id)}
+                alt={user.name}
+              />
+              <span className="text-medium">@{user.name}</span>
+            </a>
+          </div>
         </Link>
       )}
       <p>{post.content}</p>
