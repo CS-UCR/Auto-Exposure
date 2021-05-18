@@ -1,5 +1,5 @@
 import React from "react";
-import Head from "next/head";
+import router from "next/router";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/index";
 
@@ -9,6 +9,7 @@ export default function Header({ children }) {
     await fetch("/api/auth", {
       method: "DELETE",
     });
+    router.push("/");
     mutate(null);
   };
   return (
