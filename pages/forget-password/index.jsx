@@ -27,7 +27,7 @@ const ForgetPasswordPage = () => {
   return (
     <section className="mx-auto max-w-sm">
       <Head>
-        <title>Forget password</title>
+        <title>Auto Exposure | Forgot</title>
       </Head>
       <h1 className="font-bold text-3xl tracking-loose mb-4">
         Forgot Password
