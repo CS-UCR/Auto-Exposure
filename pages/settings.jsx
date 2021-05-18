@@ -88,13 +88,13 @@ const ProfileSection = () => {
       <Head>
         <title>Auto Exposure | Settings</title>
       </Head>
-      <section className="mx-auto w-full max-w-sm">
+      <section className="mx-auto w-full max-w-xl">
         <Toaster />
         <h1 className="font-bold text-3xl tracking-loose mb-4">Edit Profile</h1>
         {msg.message ? (
           <p className="text-red-500 my-4">{msg.message}</p>
         ) : null}
-        <form onSubmit={handleSubmit} className="space-y-2 min-w-full max-w-sm">
+        <form onSubmit={handleSubmit} className="space-y-2">
           {!user.emailVerified ? (
             <p>
               Your email has not been verified. <br />{" "}
@@ -146,7 +146,7 @@ const ProfileSection = () => {
             <button
               disabled={isUpdating}
               type="submit"
-              className="bg-black text-white rounded-sm py-2 px-3 font-medium"
+              className="bg-black text-white rounded-sm py-2 px-3 font-medium hover:bg-gray-800 hover:shadow-lg transition duration-200 ease-in-out"
             >
               Save Profile
             </button>
@@ -180,7 +180,7 @@ const ProfileSection = () => {
             </div>
             <button
               type="submit"
-              className="bg-gray-200 text-black rounded-sm py-2 px-3 font-medium"
+              className="bg-gray-200 text-black rounded-sm py-2 px-3 font-medium hover:bg-gray-300 hover:shadow-lg transition duration-200 ease-in-out"
             >
               Change Password
             </button>

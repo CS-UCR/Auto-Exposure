@@ -15,7 +15,9 @@ function Post({ post }) {
       {user && (
         <Link href={`/user/${user._id}`}>
           <div>
-            <img src={post.postPicture} className="pb-6 fill" alt="post image" />
+            <div className="">
+              <img src={post.postPicture} className="pb-6 fill h-full" alt="post image" />
+            </div>
             <a className="flex text-blue-600 items-center">
               <img
                 width="27"
@@ -24,7 +26,9 @@ function Post({ post }) {
                 src={user.profilePicture || defaultProfilePicture(user._id)}
                 alt={user.firstname}
               />
-              <span className="text-medium">@{user.username}</span>
+              <span className="text-medium cursor-pointer">
+                @{user.username}
+              </span>
             </a>
           </div>
         </Link>
@@ -87,7 +91,7 @@ export default function Posts({ creatorId }) {
 
   return (
     <div>
-      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="w-full mx-auto grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
         {posts.map((post) => (
           <Post key={post._id} post={post} />
         ))}

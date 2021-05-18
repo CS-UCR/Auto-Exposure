@@ -37,9 +37,11 @@ a {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  height: auto;
 }
 .fill img {
   flex-shrink: 0;
+  margin: auto;
   min-width: 100%;
   min-height: 100%;
 }

@@ -20,27 +20,27 @@ export default function UserPage({ user }) {
         <title>Auto Exposure | {firstname}</title>
       </Head>
       <section className="mx-auto w-full max-w-7xl">
-        <div className="flex items-center space-x-6">
+        <div className="flex md:flex-row flex-col items-center md:space-x-6">
           <img
             src={profilePicture || defaultProfilePicture(_id)}
             alt={firstname}
-            className="rounded-full md:h-60 md:w-60 h-24 w-24"
+            className="rounded-full md:h-52 md:w-52 h-36 w-36 m-6"
           />
           <div>
             <div className="flex flex-col space-y-3">
               <h1 className="font-bold text-3xl tracking-loose">
                 Welcome to your garage, {firstname}.
               </h1>
-              <h2 className="font-medium text-xl text-gray-500">@{username}</h2>
-              <h2 className="font-medium text-xl text-gray-500">About</h2>
+              <h2 className="font-medium text-xl text-gray-600">@{username}</h2>
+              <h2 className="font-medium text-xl text-gray-600">About</h2>
               <p>{bio}</p>
             </div>
             {isCurrentUser && (
               <Link href="/settings">
                 <button
                   type="button"
-                  className="bg-gray-200 rounded-sm py-2 px-6 text-black font-medium flex-intial hover:bg-gray-100
-                  transition duration-200 ease-in-out"
+                  className="bg-gray-200 rounded-sm py-2 px-6 text-black font-medium flex-intial hover:bg-gray-300
+                  hover:shadow-md transition duration-200 ease-in-out mt-4"
                 >
                   Edit Profile
                 </button>
@@ -50,7 +50,7 @@ export default function UserPage({ user }) {
         </div>
 
         <div>
-          <h3 className="text-2xl text-gray-500 text-bold my-4">My Posts</h3>
+          <h3 className="text-2xl text-gray-600 font-semibold my-4">My Posts</h3>
           <Posts creatorId={user._id} />
         </div>
       </section>
