@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCurrentUser } from "@/hooks/index";
+import toast, { Toaster } from "react-hot-toast";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -28,7 +29,8 @@ const LoginPage = () => {
       const userObj = await res.json();
       mutate(userObj);
     } else {
-      setErrorMsg("Incorrect username or password. Try again!");
+      // setErrorMsg("Incorrect username or password. Try again!");
+      toast.error("Incorrect email or password!");
     }
   }
 
@@ -37,37 +39,39 @@ const LoginPage = () => {
       <Head>
         <title>Auto Exposure | Sign in</title>
       </Head>
-      <section className="mx-auto max-w-sm">
+      <section className="mx-auto max-w-md">
+        <Toaster />
         <h1 className="font-bold text-3xl tracking-loose mb-4">Sign In</h1>
         <h2>
           Log in to your account on Auto Exposure here to continue sharing and
           enjoying cars.
         </h2>
-        <form onSubmit={onSubmit} className="space-y-2 min-w-full max-w-sm">
+        <h3 className="text-xl font-medium my-4">Login Infomation</h3>
+        <form onSubmit={onSubmit} className="space-y-2">
           {errorMsg ? <p className="text-red-600 my-4">{errorMsg}</p> : null}
           <div className="flex flex-col">
-            <label className="font-medium">Email:</label>
+            <label className="font-medium text-gray-600">Email</label>
             <input
               id="email"
               type="email"
               name="email"
-              placeholder="Enter your email"
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+              placeholder=""
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
             />
           </div>
           <div className="flex flex-col pb-4">
-            <label className="font-medium">Password: </label>
+            <label className="font-medium text-gray-600">Password</label>
             <input
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
               id="password"
               type="password"
               name="password"
-              placeholder="Enter your password"
+              placeholder=""
             />
           </div>
           <div className="flex flex-col space-y-3">
             <button
-              className="bg-gray-200 text-black rounded-sm py-1 px-3 font-medium"
+              className="bg-gray-200 text-black rounded-sm py-2 px-3 font-medium hover:bg-gray-300 transition hover:shadow-lg duration-200 ease-in-out"
               type="submit"
             >
               Login

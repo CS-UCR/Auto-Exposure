@@ -5,8 +5,6 @@ import bcrypt from "bcryptjs";
 import { all } from "@/middlewares/index";
 import { extractUser } from "@/lib/api-helpers";
 import { insertUser, findUserByEmail } from "@/db/index";
-import toast, { Toaster } from "react-hot-toast";
-
 const handler = nc();
 
 handler.use(all);

@@ -29,6 +29,7 @@ const SignupPage = () => {
       body: JSON.stringify(body),
     });
     if (res.status === 201) {
+      toast.success("Success!");
       const userObj = await res.json();
       mutate(userObj);
     } else {
@@ -57,12 +58,12 @@ const SignupPage = () => {
         <Toaster />
         <h1 className="font-bold text-3xl tracking-loose mb-4">Sign Up</h1>
         <h2>Sign up to enjoy and share your cars on Auto Exposure.</h2>
-        <h3 className="text-xl font-medium my-4">Personal infomation</h3>
+        <h3 className="text-xl font-medium my-4">Personal Infomation</h3>
         <form onSubmit={handleSubmit} className="space-y-2">
           {errorMsg ? <p className="text-red-500">{errorMsg}</p> : null}
           <div className="flex md:flex-row flex-col md:space-x-4">
             <div className="flex flex-col">
-              <label className="font-medium">First Name</label>
+              <label className="font-medium text-gray-600">First Name</label>
               <input
                 id="firstname"
                 name="firstname"
@@ -72,7 +73,7 @@ const SignupPage = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="font-medium">Last Name</label>
+              <label className="font-medium text-gray-600">Last Name</label>
               <input
                 id="lastname"
                 name="lastname"
@@ -82,9 +83,9 @@ const SignupPage = () => {
               />
             </div>
           </div>
-          <h3 className="text-xl font-medium my-4">Personal infomation</h3>
+          <h3 className="text-xl font-medium my-4">Account Infomation</h3>
           <div className="flex flex-col">
-            <label className="font-medium">Username</label>
+            <label className="font-medium text-gray-600">Username</label>
             <input
               id="username"
               name="username"
@@ -94,7 +95,7 @@ const SignupPage = () => {
             />
           </div>
           <div className="flex flex-col">
-            <label className="font-medium">Email</label>
+            <label className="font-medium text-gray-600">Email</label>
             <input
               id="email"
               name="email"
@@ -104,7 +105,7 @@ const SignupPage = () => {
             />
           </div>
           <div className="flex flex-col">
-            <label className="font-medium">Password</label>
+            <label className="font-medium text-gray-600">Password</label>
             <input
               id="password"
               name="password"
@@ -114,7 +115,9 @@ const SignupPage = () => {
             />
           </div>
           <div className="flex flex-col pb-4">
-            <label className="font-medium">Confirm Password</label>
+            <label className="font-medium text-gray-600">
+              Confirm Password
+            </label>
             <input
               id="password2"
               name="password2"
@@ -125,7 +128,7 @@ const SignupPage = () => {
           </div>
           <div className="flex flex-col space-y-3">
             <button
-              className="bg-black text-white rounded-sm py-1 px-3 font-medium"
+              className="bg-black text-white rounded-sm py-2 px-3 font-medium hover:bg-gray-800 hover:shadow-lg transition duration-200 ease-in-out"
               type="submit"
             >
               Sign up
