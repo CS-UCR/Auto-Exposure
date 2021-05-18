@@ -26,6 +26,7 @@ const LoginPage = () => {
       body: JSON.stringify(body),
     });
     if (res.status === 200) {
+      toast.success("Signed in!");
       const userObj = await res.json();
       mutate(userObj);
     } else {
