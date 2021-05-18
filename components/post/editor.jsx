@@ -10,11 +10,7 @@ export default function PostEditor() {
 
   if (!user) {
     return (
-      <div>
-        <h2 className="font-medium text-xl text-gray-400 my-4">
-          Please sign in to post
-        </h2>
-      </div>
+      <div></div>
     );
   }
 

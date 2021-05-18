@@ -13,7 +13,7 @@ const IndexPage = () => {
       </h1>
       <div>
         <h2 className="font-medium text-xl text-gray-400 my-4 ">
-          Here is your current feed. Enjoy the drive.
+          Here is your current feed. Enjoy the drive. {user ? "" : "Sign in to post."}
         </h2>
         <div className="flex md:flex-row flex-col">
           <PostEditor />
