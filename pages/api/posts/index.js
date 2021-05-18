@@ -37,7 +37,6 @@ handler.get(async (req, res) => {
     //  a concrete range of posts
     res.setHeader("cache-control", `public, max-age=${maxAge}`);
   }
-
   res.send({ posts });
 });
 
