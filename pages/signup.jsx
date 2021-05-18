@@ -16,8 +16,11 @@ const SignupPage = () => {
     e.preventDefault();
     const body = {
       email: e.currentTarget.email.value,
-      name: e.currentTarget.name.value,
+      username: e.currentTarget.username.value,
+      firstname: e.currentTarget.firstname.value,
+      lastname: e.currentTarget.lastname.value,
       password: e.currentTarget.password.value,
+      password2: e.currentTarget.password2.value,
     };
     const res = await fetch("/api/users", {
       method: "POST",
@@ -43,12 +46,32 @@ const SignupPage = () => {
         <form onSubmit={handleSubmit} className="space-y-2 min-w-full max-w-sm">
           {errorMsg ? <p className="text-red-500">{errorMsg}</p> : null}
           <div className="flex flex-col">
+            <label className="font-medium">First Name:</label>
+            <input
+              id="firstname"
+              name="firstname"
+              type="text"
+              placeholder="Enter your first name"
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="font-medium">Last Name:</label>
+            <input
+              id="lastname"
+              name="lastname"
+              type="text"
+              placeholder="Enter your last name"
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+            />
+          </div>
+          <div className="flex flex-col">
             <label className="font-medium">Username:</label>
             <input
-              id="name"
-              name="name"
+              id="username"
+              name="username"
               type="text"
-              placeholder="Enter your name"
+              placeholder="Enter your username"
               className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
             />
           </div>
@@ -62,13 +85,23 @@ const SignupPage = () => {
               className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
             />
           </div>
-          <div className="flex flex-col pb-4">
+          <div className="flex flex-col">
             <label className="font-medium">Password:</label>
             <input
               id="password"
               name="password"
               type="password"
               placeholder="Create a password"
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+            />
+          </div>
+          <div className="flex flex-col pb-4">
+            <label className="font-medium">Password:</label>
+            <input
+              id="password2"
+              name="password2"
+              type="password"
+              placeholder="Confirm password"
               className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
             />
           </div>

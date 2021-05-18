@@ -11,24 +11,24 @@ import { defaultProfilePicture } from "@/lib/default";
 
 export default function UserPage({ user }) {
   if (!user) return <Error statusCode={404} />;
-  const { name, email, bio, profilePicture, _id } = user || {};
+  const { firstname, email, bio, profilePicture, _id } = user || {};
   const [currentUser] = useCurrentUser();
   const isCurrentUser = currentUser?._id === user._id;
   return (
     <>
       <Head>
-        <title>Auto Exposure | {name}</title>
+        <title>Auto Exposure | {firstname}</title>
       </Head>
       <section className="mx-auto w-full max-w-7xl">
         <div className="flex items-center space-x-6">
           <img
             src={profilePicture || defaultProfilePicture(_id)}
-            alt={name}
+            alt={firstname}
             className="rounded-full h-60 w-60"
           />
           <div>
             <div className="flex flex-col space-y-3">
-              <h1 className="font-bold text-3xl tracking-loose">{name}</h1>
+              <h1 className="font-bold text-3xl tracking-loose">{firstname}</h1>
               <h2 className="font-medium text-xl text-400-xl">About</h2>
               <p>{bio}</p>
               <h2 className="font-medium text-xl text-400-xl">Email</h2>

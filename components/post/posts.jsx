@@ -22,9 +22,9 @@ function Post({ post }) {
                 height="27"
                 className="rounded-full mr-2"
                 src={user.profilePicture || defaultProfilePicture(user._id)}
-                alt={user.name}
+                alt={user.firstname}
               />
-              <span className="text-medium">@{user.name}</span>
+              <span className="text-medium">@{user.username}</span>
             </a>
           </div>
         </Link>

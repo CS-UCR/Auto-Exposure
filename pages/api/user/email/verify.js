@@ -8,7 +8,7 @@ const handler = nc();
 handler.use(all);
 
 handler.post(async (req, res) => {
-  if (!req.user) { res.json(401).send('you need to be authenticated'); return; }
+  if (!req.user) { res.json(401).send('You need to be authenticated.'); return; }
 
   const token = await insertToken(req.db, {
     creatorId: req.user._id,

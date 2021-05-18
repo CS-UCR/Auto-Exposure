@@ -9,7 +9,7 @@ const IndexPage = () => {
   return (
     <section className="mx-auto w-full max-w-7xl">
       <h1 className="font-bold text-3xl tracking-loose">
-        Strap in, {user ? user.name : "Racer"}.
+        Strap in, {user ? user.firstname : "Racer"}.
       </h1>
       <div>
         <h2 className="font-medium text-xl text-gray-400 my-4">
