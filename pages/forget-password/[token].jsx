@@ -1,9 +1,9 @@
-import React from 'react';
-import Head from 'next/head';
-import nc from 'next-connect';
-import Router from 'next/router';
-import { database } from '@/middlewares/index';
-import { findTokenByIdAndType } from '@/db/index';
+import React from "react";
+import Head from "next/head";
+import nc from "next-connect";
+import Router from "next/router";
+import { database } from "@/middlewares/index";
+import { findTokenByIdAndType } from "@/db/index";
 
 const ResetPasswordTokenPage = ({ valid, token }) => {
   async function handleSubmit(event) {
@@ -13,27 +13,20 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
       token,
     };
 
-    const res = await fetch('/api/user/password/reset', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/user/password/reset", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
-    if (res.status === 200) Router.replace('/');
+    if (res.status === 200) Router.replace("/");
   }
 
   return (
-    <>
+    <section className="mx-auto max-w-sm">
       <Head>
-        <title>Forget password</title>
+        <title>Auto Exposure | Forgot</title>
       </Head>
-      <style jsx>
-        {`
-        p {
-          text-align: center;
-        }
-      `}
-      </style>
       <h2>Forget password</h2>
       {valid ? (
         <>
@@ -52,7 +45,7 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
       ) : (
         <p>This link may have been expired</p>
       )}
-    </>
+    </section>
   );
 };
 
@@ -62,7 +55,11 @@ export async function getServerSideProps(ctx) {
   await handler.run(ctx.req, ctx.res);
   const { token } = ctx.query;
 
-  const tokenDoc = await findTokenByIdAndType(ctx.req.db, ctx.query.token, 'passwordReset');
+  const tokenDoc = await findTokenByIdAndType(
+    ctx.req.db,
+    ctx.query.token,
+    "passwordReset"
+  );
 
   return { props: { token, valid: !!tokenDoc } };
 }
