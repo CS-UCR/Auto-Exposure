@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { all } from "@/middlewares/index";
 import { extractUser } from "@/lib/api-helpers";
 import { insertUser, findUserByEmail } from "@/db/index";
+import toast, { Toaster } from "react-hot-toast";
 
 const handler = nc();
 
@@ -18,11 +19,11 @@ handler.post(async (req, res) => {
     return;
   }
   if (!isEmail(email)) {
-    res.status(400).send("The email you entered is invalid.");
+    res.status(401).send("The email you entered is invalid.");
     return;
   }
   if (password != password2) {
-    res.status(400).send("Passwords do not match.");
+    res.status(402).send("Passwords do not match.");
     return;
   }
   if (await findUserByEmail(req.db, email)) {

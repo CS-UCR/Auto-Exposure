@@ -3,6 +3,7 @@ import Head from "next/head";
 import Router from "next/router";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/index";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignupPage = () => {
   const [user, { mutate }] = useCurrentUser();
@@ -31,7 +32,19 @@ const SignupPage = () => {
       const userObj = await res.json();
       mutate(userObj);
     } else {
-      setErrorMsg(await res.text());
+      // setErrorMsg(await res.text());
+      if (res.status === 400) {
+        toast.error("Missing fields!");
+      }
+      if (res.status === 401) {
+        toast.error("Email is invalid!");
+      }
+      if (res.status === 402) {
+        toast.error("Passwords do not match!");
+      }
+      if (res.status === 403) {
+        toast.error("Email already in use!");
+      }
     }
   };
 
@@ -40,69 +53,74 @@ const SignupPage = () => {
       <Head>
         <title>Auto Exposure | Sign up</title>
       </Head>
-      <section className="mx-auto max-w-sm">
+      <section className="mx-auto">
+        <Toaster />
         <h1 className="font-bold text-3xl tracking-loose mb-4">Sign Up</h1>
         <h2>Sign up to enjoy and share your cars on Auto Exposure.</h2>
-        <form onSubmit={handleSubmit} className="space-y-2 min-w-full max-w-sm">
+        <h3 className="text-xl font-medium my-4">Personal infomation</h3>
+        <form onSubmit={handleSubmit} className="space-y-2">
           {errorMsg ? <p className="text-red-500">{errorMsg}</p> : null}
-          <div className="flex flex-col">
-            <label className="font-medium">First Name:</label>
-            <input
-              id="firstname"
-              name="firstname"
-              type="text"
-              placeholder="Enter your first name"
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
-            />
+          <div className="flex md:flex-row flex-col md:space-x-4">
+            <div className="flex flex-col">
+              <label className="font-medium">First Name</label>
+              <input
+                id="firstname"
+                name="firstname"
+                type="text"
+                placeholder=""
+                className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="font-medium">Last Name</label>
+              <input
+                id="lastname"
+                name="lastname"
+                type="text"
+                placeholder=""
+                className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
+              />
+            </div>
           </div>
+          <h3 className="text-xl font-medium my-4">Personal infomation</h3>
           <div className="flex flex-col">
-            <label className="font-medium">Last Name:</label>
-            <input
-              id="lastname"
-              name="lastname"
-              type="text"
-              placeholder="Enter your last name"
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label className="font-medium">Username:</label>
+            <label className="font-medium">Username</label>
             <input
               id="username"
               name="username"
               type="text"
-              placeholder="Enter your username"
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+              placeholder=""
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
             />
           </div>
           <div className="flex flex-col">
-            <label className="font-medium">Email:</label>
+            <label className="font-medium">Email</label>
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="Enter your email"
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+              placeholder=""
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
             />
           </div>
           <div className="flex flex-col">
-            <label className="font-medium">Password:</label>
+            <label className="font-medium">Password</label>
             <input
               id="password"
               name="password"
               type="password"
-              placeholder="Create a password"
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+              placeholder=""
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
             />
           </div>
           <div className="flex flex-col pb-4">
-            <label className="font-medium">Password:</label>
+            <label className="font-medium">Confirm Password</label>
             <input
               id="password2"
               name="password2"
               type="password"
-              placeholder="Confirm password"
-              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+              placeholder=""
+              className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm"
             />
           </div>
           <div className="flex flex-col space-y-3">
