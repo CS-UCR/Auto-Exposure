@@ -3,22 +3,22 @@ import { all } from "@/middlewares/index";
 import multer from "multer";
 import { getPosts, insertPost } from "@/db/index";
 import { ReplSet } from "mongodb";
-import { v2 as cloudinary } from "cloudinary";
+// import { v2 as cloudinary } from "cloudinary";
 
 const upload = multer({ dest: "/tmp" });
 const handler = nc();
 
-const {
-  hostname: cloud_name,
-  username: api_key,
-  password: api_secret,
-} = new URL(process.env.CLOUDINARY_URL);
+// const {
+//   hostname: cloud_name,
+//   username: api_key,
+//   password: api_secret,
+// } = new URL(process.env.CLOUDINARY_URL);
 
-cloudinary.config({
-  cloud_name,
-  api_key,
-  api_secret,
-});
+// cloudinary.config({
+//   cloud_name,
+//   api_key,
+//   api_secret,
+// });
 
 handler.use(all);
 
@@ -31,7 +31,6 @@ handler.get(async (req, res) => {
     req.query.by,
     req.query.limit ? parseInt(req.query.limit, 10) : undefined
   );
-
   if (req.query.from && posts.length > 0) {
     // This is safe to cache because from defines
     //  a concrete range of posts
@@ -40,13 +39,25 @@ handler.get(async (req, res) => {
   res.send({ posts });
 });
 
-handler.post( async (req, res) => {
-  if (!req.body.content)
+// handler.post(upload.single("postPicture"), async (req, res) => {
+handler.post(async (req, res) => {
+  // let postPicture;
+  // if (req.file) {
+  //   const image = await cloudinary.uploader.upload(req.file.path, {
+  //     width: 512,
+  //     height: 512,
+  //     crop: "fill",
+  //   });
+  //   postPicture = image.secure_url;
+  // }
+  if (!req.body.caption)
     return res.status(400).send("You must write something");
+    if (!req.body.postPicture)
+    return res.status(400).send("You must upload a url");
   const post = await insertPost(req.db, {
-    content: req.body.content,
+    caption: req.body.caption,
     creatorId: req.user._id,
-    imageUrl: req.body.imageUrl,
+    postPicture: req.body.postPicture,
   });
 
   return res.json({ post });

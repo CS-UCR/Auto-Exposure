@@ -15,7 +15,7 @@ function Post({ post }) {
       {user && (
         <Link href={`/user/${user._id}`}>
           <div>
-            <img src="/dummy.jpeg" className="pb-6 fill" alt="post image" />
+            <img src={post.postPicture} className="pb-6 fill" alt="post image" />
             <a className="flex text-blue-600 items-center">
               <img
                 width="27"
@@ -29,7 +29,7 @@ function Post({ post }) {
           </div>
         </Link>
       )}
-      <p>{post.content}</p>
+      <p>{post.caption}</p>
       <p className="text-sm text-gray-400">
         {new Date(post.createdAt).toLocaleString()}
       </p>
