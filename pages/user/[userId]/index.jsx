@@ -11,7 +11,7 @@ import { defaultProfilePicture } from "@/lib/default";
 
 export default function UserPage({ user }) {
   if (!user) return <Error statusCode={404} />;
-  const { firstname, email, bio, profilePicture, _id } = user || {};
+  const { firstname, username, bio, profilePicture, _id } = user || {};
   const [currentUser] = useCurrentUser();
   const isCurrentUser = currentUser?._id === user._id;
   return (
@@ -24,15 +24,16 @@ export default function UserPage({ user }) {
           <img
             src={profilePicture || defaultProfilePicture(_id)}
             alt={firstname}
-            className="rounded-full h-60 w-60"
+            className="rounded-full md:h-60 md:w-60 h-24 w-24"
           />
           <div>
             <div className="flex flex-col space-y-3">
-              <h1 className="font-bold text-3xl tracking-loose">{firstname}</h1>
-              <h2 className="font-medium text-xl text-400-xl">About</h2>
+              <h1 className="font-bold text-3xl tracking-loose">
+                Welcome to your garage, {firstname}.
+              </h1>
+              <h2 className="font-medium text-xl text-gray-500">@{username}</h2>
+              <h2 className="font-medium text-xl text-gray-500">About</h2>
               <p>{bio}</p>
-              <h2 className="font-medium text-xl text-400-xl">Email</h2>
-              <p>{email}</p>
             </div>
             {isCurrentUser && (
               <Link href="/settings">

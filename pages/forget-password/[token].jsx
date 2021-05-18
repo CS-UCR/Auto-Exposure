@@ -10,6 +10,7 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
     event.preventDefault();
     const body = {
       password: event.currentTarget.password.value,
+      password2: event.currentTarget.password2.value,
       token,
     };
 
@@ -35,14 +36,26 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
             onSubmit={handleSubmit}
             className="space-y-2 min-w-full max-w-sm"
           >
-            <div className="flex flex-col pb-4">
+            <div className="flex flex-col">
               <label className="font-medium">New password:</label>
-              <input />
               <input
+                id="password"
                 name="password"
                 type="password"
                 placeholder="Enter your new password"
-                className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+                className="form-input border-none ring-2 ring-gray-300 focus:ring-2
+                 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
+              />
+            </div>
+            <div className="flex flex-col pb-4">
+              <label className="font-medium">New password:</label>
+              <input
+                id="password2"
+                name="password2"
+                type="password"
+                placeholder="Enter your new password"
+                className="form-input border-none ring-2 ring-gray-300 focus:ring-2
+                 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
               />
             </div>
             <button

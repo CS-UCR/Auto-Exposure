@@ -11,23 +11,22 @@ const handler = nc();
 handler.use(all);
 
 handler.post(async (req, res) => {
-  const { username, firstname, lastname, password, password2 } = req.body;
+  const { firstname, lastname, username, password, password2 } = req.body;
   const email = normalizeEmail(req.body.email);
+  if (!password || !username || !firstname || !lastname || !email) {
+    res.status(400).send("Missing field(s)");
+    return;
+  }
   if (!isEmail(email)) {
     res.status(400).send("The email you entered is invalid.");
     return;
   }
-  if (!password || !username || !firstname || !lastname) {
-    res.status(400).send("Missing field(s)");
-    return;
-  }
-
-  if (await findUserByEmail(req.db, email)) {
-    res.status(403).send("The email has already been used.");
-    return;
-  }
   if (password != password2) {
     res.status(400).send("Passwords do not match.");
+    return;
+  }
+  if (await findUserByEmail(req.db, email)) {
+    res.status(403).send("The email has already been used.");
     return;
   }
   const hashedPassword = await bcrypt.hash(password, 10);
