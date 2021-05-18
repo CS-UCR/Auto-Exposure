@@ -14,16 +14,19 @@ function Post({ post }) {
     >
       {user && (
         <Link href={`/user/${user._id}`}>
-          <a className="flex text-blue-500 items-center">
-            <img
-              width="27"
-              height="27"
-              className="rounded-full mr-2"
-              src={user.profilePicture || defaultProfilePicture(user._id)}
-              alt={user.name}
-            />
-            <span className="text-medium">@{user.name}</span>
-          </a>
+          <div>
+            <img src="/dummy.jpeg" className="pb-6 fill" alt="post image" />
+            <a className="flex text-blue-600 items-center">
+              <img
+                width="27"
+                height="27"
+                className="rounded-full mr-2"
+                src={user.profilePicture || defaultProfilePicture(user._id)}
+                alt={user.name}
+              />
+              <span className="text-medium">@{user.name}</span>
+            </a>
+          </div>
         </Link>
       )}
       <p>{post.content}</p>
@@ -90,10 +93,11 @@ export default function Posts({ creatorId }) {
         ))}
       </div>
       {!isReachingEnd && (
-        <div className="flex w-full mx-auto">
+        <div className="flex w-full mx-auto mt-8 items-center justify-center">
           <button
             type="button"
-            className="bg-black rounded-sm py-2 px-6 text-white font-medium"
+            className="bg-gray-200 text-black rounded-sm py-2 px-6 font-medium
+             hover:bg-gray-100 transition duration-200 ease-in-out"
             onClick={() => setSize(size + 1)}
             disabled={isReachingEnd || isLoadingMore}
           >

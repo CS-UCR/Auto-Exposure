@@ -5,13 +5,6 @@ import { useCurrentUser } from "@/hooks/index";
 import Header from "@/components/Header";
 
 export default function Layout({ children }) {
-  // const [user, { mutate }] = useCurrentUser();
-  // const handleLogout = async () => {
-  //   await fetch("/api/auth", {
-  //     method: "DELETE",
-  //   });
-  //   mutate(null);
-  // };
   return (
     <>
       <Head>
@@ -25,7 +18,7 @@ export default function Layout({ children }) {
           name="description"
           content="Auto Exposure is a social medium aimed towards car enthusiasts."
         />
-        <meta property="og:title" content="Next.js + MongoDB App" />
+        <meta property="og:title" content="Auto Exposure" />
         <meta
           property="og:description"
           content="Auto Exposure is a social medium aimed towards car enthusiasts."

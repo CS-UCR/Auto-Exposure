@@ -38,7 +38,8 @@ export default function UserPage({ user }) {
               <Link href="/settings">
                 <button
                   type="button"
-                  className="bg-gray-200 rounded-sm py-2 px-6 text-black font-medium flex-intial"
+                  className="bg-gray-200 rounded-sm py-2 px-6 text-black font-medium flex-intial hover:bg-gray-100
+                  transition duration-200 ease-in-out"
                 >
                   Edit Profile
                 </button>

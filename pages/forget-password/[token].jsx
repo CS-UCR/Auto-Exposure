@@ -1,9 +1,9 @@
-import React from 'react';
-import Head from 'next/head';
-import nc from 'next-connect';
-import Router from 'next/router';
-import { database } from '@/middlewares/index';
-import { findTokenByIdAndType } from '@/db/index';
+import React from "react";
+import Head from "next/head";
+import nc from "next-connect";
+import Router from "next/router";
+import { database } from "@/middlewares/index";
+import { findTokenByIdAndType } from "@/db/index";
 
 const ResetPasswordTokenPage = ({ valid, token }) => {
   async function handleSubmit(event) {
@@ -13,46 +13,50 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
       token,
     };
 
-    const res = await fetch('/api/user/password/reset', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/user/password/reset", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
-    if (res.status === 200) Router.replace('/');
+    if (res.status === 200) Router.replace("/");
   }
 
   return (
-    <>
+    <section className="mx-auto max-w-sm">
       <Head>
-        <title>Forget password</title>
+        <title>Auto Exposure | Reset</title>
       </Head>
-      <style jsx>
-        {`
-        p {
-          text-align: center;
-        }
-      `}
-      </style>
-      <h2>Forget password</h2>
+      <h1 className="font-bold text-3xl tracking-loose mb-4">Reset Password</h1>
       {valid ? (
         <>
           <p>Enter your new password.</p>
-          <form onSubmit={handleSubmit}>
-            <div>
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-2 min-w-full max-w-sm"
+          >
+            <div className="flex flex-col pb-4">
+              <label className="font-medium">New password:</label>
+              <input />
               <input
                 name="password"
                 type="password"
-                placeholder="New password"
+                placeholder="Enter your new password"
+                className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
               />
             </div>
-            <button type="submit">Set new password</button>
+            <button
+              type="submit"
+              className="bg-black text-white rounded-sm py-1 px-3 font-medium"
+            >
+              Set Password
+            </button>
           </form>
         </>
       ) : (
         <p>This link may have been expired</p>
       )}
-    </>
+    </section>
   );
 };
 
@@ -62,7 +66,11 @@ export async function getServerSideProps(ctx) {
   await handler.run(ctx.req, ctx.res);
   const { token } = ctx.query;
 
-  const tokenDoc = await findTokenByIdAndType(ctx.req.db, ctx.query.token, 'passwordReset');
+  const tokenDoc = await findTokenByIdAndType(
+    ctx.req.db,
+    ctx.query.token,
+    "passwordReset"
+  );
 
   return { props: { token, valid: !!tokenDoc } };
 }

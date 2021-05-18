@@ -37,7 +37,7 @@ const ProfileSection = () => {
           ...userData.user,
         },
       });
-      setMsg({ message: "Profile updated" });
+      setMsg({ message: "Your profile has been updated." });
     } else {
       setMsg({ message: await res.text(), isError: true });
     }
@@ -80,7 +80,7 @@ const ProfileSection = () => {
   return (
     <>
       <Head>
-        <title>Settings</title>
+        <title>Auto Exposure | Settings</title>
       </Head>
       <section className="mx-auto w-full max-w-sm">
         <h1 className="font-bold text-3xl tracking-loose mb-4">Edit Profile</h1>
@@ -94,7 +94,7 @@ const ProfileSection = () => {
               {/* eslint-disable-next-line */}
               <a
                 role="button"
-                className="text-blue-500 underline"
+                className="text-blue-600 underline"
                 onClick={sendVerificationEmail}
               >
                 Send verification email
@@ -102,17 +102,6 @@ const ProfileSection = () => {
             </p>
           ) : null}
           <div className="flex flex-col space-y-4">
-            {/* <label htmlFor="name">
-              Name
-              <input
-                required
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Your name"
-                ref={nameRef}
-              />
-            </label> */}
             <div className="flex flex-col">
               <label className="font-medium">Username:</label>
               <input
@@ -120,13 +109,13 @@ const ProfileSection = () => {
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Change your name"
+                placeholder="Change your name (disabled)"
                 ref={nameRef}
                 className="form-input border-none ring-2 ring-gray-300 focus:ring-2 focus:ring-blue-400 py-2 px-3 rounded-sm min-w-full"
               />
             </div>
             <div className="flex flex-col">
-              <label className="font-medium">Username:</label>
+              <label className="font-medium">Biography:</label>
               <textarea
                 id="bio"
                 name="bio"
@@ -137,7 +126,7 @@ const ProfileSection = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="font-medium">Username:</label>
+              <label className="font-medium">Avatar:</label>
               <input
                 type="file"
                 id="avatar"
