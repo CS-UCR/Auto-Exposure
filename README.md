@@ -2,6 +2,8 @@
 
 <img alt="Build" src="https://img.shields.io/badge/Build-Passing-green?&style=for-the-badge&" />
 
+🥇Voted Best Project in CS110: Intro to Web Development
+
 > Authors:  
 > Rajbir Johar  
 > Danial Beg  
